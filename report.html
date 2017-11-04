@@ -12204,9 +12204,11 @@ So we can say that the model successfully captures the variation of the target v
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
-<p>We can train and test on the whole data - But then the model will be overfitting on the data, which can then lead to the situation that when data provided next for predction, then the new data point may be classified wrongly.</p>
-<p>On the other hand, if data is too little then the model would not be experiencing enough data, and would underfit on the possible data possibilities.</p>
-<p>Solutions is to give enough data but not all - so that the model neither overfits nor underfits.</p>
+<p>Predictive model are used for predictinons on the data we do not have yet.
+Hence some way is required that we figure that the predictive model being concluded is good for data that will be received in future.
+Hence from the real data that is available now - a portion of data is kept separate - to assess the accuracy and reliability of predictive model we try to make/conclude.</p>
+<p>The test partition of the data provides a way to assess the accuracy and reliability of the predictive model we are trying to make/conclude.</p>
+<p>By holding out part of data as testing data, after the model is trained on the training partition, we can assess the predictions on the testing data.</p>
 
 </div>
 </div>
@@ -13843,9 +13845,15 @@ OQAAAABJRU5ErkJggg==
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
+<p>Grid search technique provides for grid of parameters, and applies different combinations of parameters along with cross-validation to figure the best model. At the end the hyperparameters to get the best model have been identified.</p>
+<p>For example, if we used Support Vector Classifier, then to make it work effeciently on the data, we have to choose the correct hyperparameters. Lets say we want to find the best values of C and gamma only, and we select set of values for C and gamma and supply as parameter grid to the GridSearchCV. 
+Besides the parameter GridSearchCV is supplied</p>
 <ul>
-<li>Grid search technique provides for grid of parameters, and applies different combinations of parameters along with cross-validation to figure the best model. At the end the parameters to get the best model have been identified.</li>
+<li>scoring function - to check the best possbile combination of parmeters.</li>
+<li>dataset</li>
+<li>Object of SVC</li>
 </ul>
+<p>The Grid search then will try <em>every combination</em> of parameters in the supplied parameter grid, and will use supplied scoring function to compare and conclude to the bestcombination of paramenters.</p>
 
 </div>
 </div>
@@ -13873,8 +13881,9 @@ OQAAAABJRU5ErkJggg==
 <p><strong>Answer: </strong></p>
 <p>Disadvantage of train test split</p>
 <ul>
-<li>Just using train_test_split - has problem that observations in testing set can signifantly change testing accuracy</li>
+<li>Just using train_test_split - training set of data may have only certain kind of elements in data, whereas the other set may have some which are missed in the training. This will result in overfitting on the elements in training set.</li>
 </ul>
+<p>Hence to avoid problems of simple test train split - cross validation is used.</p>
 <p>K-fold cross-validation</p>
 <ul>
 <li>K-fold cross-validation splits the dataset into K equal partitions - also known folds</li>
@@ -13883,12 +13892,19 @@ OQAAAABJRU5ErkJggg==
 </ul>
 <p>Advantages of K-fold cross validaiton</p>
 <ul>
-<li>This approach makes more accurate estimate of accuracy - since every observation is used for training and testing</li>
+<li>This approach makes more accurate estimate of accuracy - Cross-validation averages prediction error to derive a more accurate estimate of model prediction performance.</li>
 </ul>
 <p>Grid search with K-fold cross validatian</p>
 <ul>
-<li>With grid search every combination of parameters is applied on the dataset performing K-fold cross validation every time </li>
-<li>This way the best set of parameters for the model get identified, and in the process entire data is used for training and testing</li>
+<li>With grid search every combination of parameters is applied on the dataset performing K-fold cross validation every time. </li>
+<li>This way the best set of parameters for the model get identified.</li>
+<li>For parameter tuning cross validation is used, and only training data is used for this. The testing data is separated before, and not passed to the cross validaiton process.</li>
+<li>With grid search cross validation is used to reach to the best set of hyperparamenters for that estimator, and hence the optimum model.</li>
+<li>The optimum model is then finally used against the test data, that was held out before the cross the validation, and then optimum models accuracy is compared against the test data target values.</li>
+</ul>
+<p>Note: We do not do parameter tuning on the testing set from a simple train/test split</p>
+<ul>
+<li>In parameter tuning testing set is not used - because using it will be like cheating; It will end up training on the test data that we separated before not to be used for any other purpose other than final accuracy assessment of the tuned model.</li>
 </ul>
 
 </div>
@@ -14031,7 +14047,10 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong> Hint: </strong> The answer comes from the output of the code snippet above.</p>
 <p><strong>Answer: </strong></p>
-<p>The optimal model have maximum depth of 4</p>
+<ul>
+<li>The optimal model have maximum depth of 4</li>
+<li>In question 6, my answer had the same max_depth</li>
+</ul>
 
 </div>
 </div>
